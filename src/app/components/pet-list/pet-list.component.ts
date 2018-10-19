@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Pet } from '../../classes/pet';
 import { PetService } from '../../services/pet/pet.service';
 
@@ -6,10 +6,10 @@ import { PetService } from '../../services/pet/pet.service';
     selector: 'pm-pets', 
     templateUrl: './pet-list.component.html'
 })
-export class PetListComponent {
+export class PetListComponent implements OnInit {
 
     @Input() pageTitle: string;
-    pageOriginalTitle: string 
+    pageOriginalTitle: string;
     imageWidth: number = 100;
     imageMargin: number = 1;
     showImage: boolean = false;
@@ -25,9 +25,9 @@ export class PetListComponent {
 
     ngOnInit(): void {
         this._petsService.getPets().subscribe(
-            ((data : Array<Pet>) => this.result(data)),
-            ((error : any) => console.log(error))
-        )
+            ((data: Array<Pet>) => this.result(data)),
+            ((error: any) => console.log(error))
+        );
     }
 
     private result(data: Array<Pet>):void {
@@ -41,6 +41,6 @@ export class PetListComponent {
 
     onRatingClicked(message:string):void {
         this.pageOriginalTitle = this.pageOriginalTitle || this.pageTitle;
-        this.pageTitle = this.pageOriginalTitle + ": " + message;
+        this.pageTitle = this.pageOriginalTitle + ': ' + message;
     }
 }
